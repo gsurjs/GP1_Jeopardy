@@ -40,7 +40,18 @@ $categories = array (
 		800 => array("q" => "These subatomic particles with no electric charge were discovered by James Chadwick in 1932." "a" => "What are neutrons?"),
 		1000 => array("q" => "This quantum mechanical principle states that you cannot simultaneously know both the exact position and momentum of a particle." "a" => "What is the Heisenberg Uncertainty Principle?"),
 	),
-	
-
-
+	"LITERATURE" => array (
+		200 => array("q" => "This Dr. Seuss character \"stole Christmas\" in a beloved holiday tale." "a" => "Who is the Grinch?"),
+		400 => array("q" => "\"It was the best of times, it was the worst of times\" opens this Charles Dickens novel." "a" => "What is A Tale of Two Cities?"),
+		600 => array("q" => "This American author wrote \"The Great Gatsby\" and \"Tender Is the Night.\"" "a" => "Who is F. Scott Fitzgerald?"),
+		800 => array("q" => "In this Shakespearean tragedy, the title character delivers the \"To be or not to be\" soliloquy." "a" => "What is Hamlet?"),
+		1000 => array("q" => "This 1922 modernist novel by James Joyce takes place in Dublin over the course of a single day." "a" => "What is Ulysses?"),
+	),
+	"POP CULTURE" => array (
+		200 => array("q" => "This animated movie franchise features a cowboy named Woody and a space ranger named Buzz." "a" => "What is Toy Story?"),
+		400 => array("q" => "This British band sang \"Bohemian Rhapsody\" and \"We Will Rock You.\"" "a" => "Who is Queen?"),
+		600 => array("q" => "This streaming series set in Hawkins, Indiana features a parallel dimension called the Upside Down." "a" => "What is Stranger Things?"),
+		800 => array("q" => "This South Korean film became the first non-English language film to win Best Picture at the Oscars in 2020." "a" => "What is Parasite?"),
+		1000 => array("q" => "This video game, released in 1980, was the first to feature cutscenes and is considered the first mascot character in gaming." "a" => "What is Pac-Man?"),
+	),
 	
