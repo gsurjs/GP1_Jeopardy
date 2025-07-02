@@ -111,5 +111,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
             <a href="logout.php" class="logout-btn">Logout</a>
         </div>
 
-        
+        <!-- result message display area -->
+        <!-- shows feedback after answering a question -->
+        <?php if (isset($_SESSION['last_result'])): ?>
+            <div class="result-message">
+                <?php 
+                echo htmlspecialchars($_SESSION['last_result']);
+                // unset the message after displaying to prevent it from showing again
+                unset($_SESSION['last_result']);
+                ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- main Jeopardy game board -->
+        <div class="game-board">
+            <!-- category row - displays the 5 categories -->
+            <div class="categories">
+                <?php foreach ($categories as $category => $questions): ?>
+                    <div class="category"><?php echo $category; ?></div>
+                <?php endforeach; ?>
+            </div>
 </body>
