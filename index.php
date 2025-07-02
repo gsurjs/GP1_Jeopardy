@@ -9,22 +9,22 @@ if (!isset($_SESSION['username'])) {
 	exit();
 }
 
-// init game data if !exist
+// init game data if !exist, stores scores in array if this is the first time playing
 if (!isset($_SESSION['scores'])) {
 	$_SESSION['scores'] = array();
 }
 
-// add curr user to scores if !exist
+// add curr user to scores if !exist, adds users curr score if first time
 if (!isset($_SESSION['scores'][$_SESSION['username']])) {
 	$_SESSION['scores'][$_SESSION['username']] = 0;
 }
 
-// init answered questions
+// init answered questions, prevent repeated answers
 if (!isset($_SESSION['answered'])) {
 	$_SESSION['answered'] = array();
 }
 
-// categories and questions
+// categories and questions, structure: category >> val >> question & answer
 $categories = array (
 	"WORLD CAPITALS" => array (
 		200 => array("q" => "This French capital city is home to the Eiffel Tower and the Louvre Museum." "a" => "What is Paris?"),
@@ -63,24 +63,28 @@ $categories = array (
 	)
 );
 
-// handle answer submission
+// handle answer submission from question page, processes POST requests when user submits an aswer
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
     $category = $_POST['category'];
     $value = $_POST['value'];
     $userAnswer = trim($_POST['answer']);
     $correctAnswer = $categories[$category][$value]['a'];
-    
+
+    // unique id for questions, format ex: "HISTORY_200" used for tracking answered questions
     $questionKey = $category . "_" . $value;
     $_SESSION['answered'][] = $questionKey;
     
+    // verify if answer is correct, strcasecmp returns 0 if string is equal
     if (strcasecmp($userAnswer, $correctAnswer) == 0) {
         $_SESSION['scores'][$_SESSION['username']] += $value;
         $_SESSION['last_result'] = "Correct! You earned $" . $value;
     } else {
+    	// wrong answer subtracts points based on val
         $_SESSION['scores'][$_SESSION['username']] -= $value;
         $_SESSION['last_result'] = "Sorry, the correct answer was: " . $correctAnswer;
     }
     
+    // redirect to prevent form resubmission when page is refreshed
     header("Location: index.php");
     exit();
 }
@@ -92,6 +96,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Jeopardy Game</title>
+    <title>This Is Jeopardy!</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
+<body>
+    <div class="container">
+        <h1 class="game-title">Jeopardy!</h1>
+        <!-- user info display bar, shows curr player and associated score -->
+        <div class="user-info">
+        	<!-- using htmlspecialchars to prevent XSS attacks -->
+            <p>Playing as: <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></p>
+            <p>Score: <strong>$<?php echo $_SESSION['scores'][$_SESSION['username']]; ?></strong></p>
+            <a href="logout.php" class="logout-btn">Logout</a>
+        </div>
+
+        
+</body>
