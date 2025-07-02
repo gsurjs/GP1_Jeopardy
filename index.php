@@ -54,4 +54,11 @@ $categories = array (
 		800 => array("q" => "This South Korean film became the first non-English language film to win Best Picture at the Oscars in 2020." "a" => "What is Parasite?"),
 		1000 => array("q" => "This video game, released in 1980, was the first to feature cutscenes and is considered the first mascot character in gaming." "a" => "What is Pac-Man?"),
 	),
-	
+	"HISTORY" => array (
+		200 => array("q" => "This American president appears on the penny and the five-dollar bill." "a" => "Who is Abraham Lincoln?"),
+		400 => array("q" => "This year marks the beginning of World War II with Germany's invasion of Poland." "a" => "What is 1939?"),
+		600 => array("q" => "This ancient wonder of the world, built around 2560 BCE, is the only one still largely intact." "a" => "What is the Great Pyramid of Giza?"),
+		800 => array("q" => "This treaty, signed in 1919, officially ended World War I and imposed harsh penalties on Germany." "a" => "What is the Treaty of Versailles?"),
+		1000 => array("q" => "This Byzantine emperor, ruling from 527-565 CE, attempted to reconquer the Western Roman Empire and codified Roman law." "a" => "Who is Justinian I?"),
+	)
+);
