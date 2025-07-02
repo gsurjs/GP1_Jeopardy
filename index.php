@@ -59,6 +59,30 @@ $categories = array (
 		400 => array("q" => "This year marks the beginning of World War II with Germany's invasion of Poland." "a" => "What is 1939?"),
 		600 => array("q" => "This ancient wonder of the world, built around 2560 BCE, is the only one still largely intact." "a" => "What is the Great Pyramid of Giza?"),
 		800 => array("q" => "This treaty, signed in 1919, officially ended World War I and imposed harsh penalties on Germany." "a" => "What is the Treaty of Versailles?"),
-		1000 => array("q" => "This Byzantine emperor, ruling from 527-565 CE, attempted to reconquer the Western Roman Empire and codified Roman law." "a" => "Who is Justinian I?"),
+		1000 => array("q" => "This Byzantine emperor, ruling from 527-565 CE, attempted to reconquer the Western Roman Empire and codified Roman law." "a" => "Who is Justinian I?")
 	)
 );
+
+// handle answer submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
+    $category = $_POST['category'];
+    $value = $_POST['value'];
+    $userAnswer = trim($_POST['answer']);
+    $correctAnswer = $categories[$category][$value]['a'];
+    
+    $questionKey = $category . "_" . $value;
+    $_SESSION['answered'][] = $questionKey;
+    
+    if (strcasecmp($userAnswer, $correctAnswer) == 0) {
+        $_SESSION['scores'][$_SESSION['username']] += $value;
+        $_SESSION['last_result'] = "Correct! You earned $" . $value;
+    } else {
+        $_SESSION['scores'][$_SESSION['username']] -= $value;
+        $_SESSION['last_result'] = "Sorry, the correct answer was: " . $correctAnswer;
+    }
+    
+    header("Location: index.php");
+    exit();
+}
+
+?>
