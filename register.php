@@ -77,3 +77,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+<!--Register HTML-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Is Jeopardy! - Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <!-- main container for registration form -->
+    <div class="login-container">
+        <!-- page title with glowing animation effect -->
+        <h1 class="game-title login-title">Register for JEOPARDY!</h1>
+
+        <!-- registration form that submits to itself -->
+        <form class="login-form" method="POST" action="register.php">
+            <!-- edge case - validation failure error message display -->
+            <?php if ($error): ?>
+                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
+
+            <!-- display success message after successful registration -->
+            <?php if ($success): ?>
+                <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
+            <?php endif; ?>
