@@ -77,3 +77,58 @@ if (in_array($questionKey, $_SESSION['answered'] ?? [])) {
 $question = $categories[$category][$value]['q'];
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeopardy - Question</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<!-- body class for question page styling -->
+<body class="question-page">
+    <!-- Full-screen overlay creates modal effect -->
+    <div class="question-modal-overlay">
+        <!-- modal container for the question -->
+        <div class="question-modal">
+            <!-- header shows category and dollar value -->
+            <div class="question-header">
+                <!-- htmlspecialchars prevents XSS attacks by escaping HTML -->
+                <h2><?php echo htmlspecialchars($category); ?></h2>
+                <h3>$<?php echo $value; ?></h3>
+            </div>
+
+            <!-- main question content -->
+            <div class="question-content">
+                <!-- display the question text -->
+                <p class="question-text"><?php echo htmlspecialchars($question); ?></p>
+
+                <!-- answer submission form -->
+                <!-- submits to index.php for answer processing -->
+                <form method="POST" action="index.php" class="answer-form">
+                    <!-- hidden fields pass category and value to index.php -->
+                    <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>">
+                    <input type="hidden" name="value" value="<?php echo $value; ?>">
+
+                    <!-- answer input field -->
+                    <div class="form-group">
+                        <label for="answer">Your Answer:</label>
+                        <!-- placeholder reminds player of Jeopardy format, autofocus adjusts cursor to field automatically -->
+                        <input type="text" id="answer" name="answer" placeholder="Remember to phrase as a question..." required autofocus>
+                    </div>
+
+                    <!-- action buttons -->
+                    <div class="button-group">
+                    	<!-- submit button to post form -->
+                    	<button type="submit" class="submit-btn">Submit Answer</button>
+                    	<!-- cancel link returns to game board without submitting answer -->
+                    	<a href="index.php" class="cancel-btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
