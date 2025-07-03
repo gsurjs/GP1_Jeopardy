@@ -120,3 +120,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- password fields are never pre-filled for security -->
                 <input type="password" id="password" name="password" required>
             </div>
+
+            <!-- password confirmation field -->
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+
+            <!-- submit button with hover effect -->
+            <button type="submit" class="login-btn">Register</button>
+
+            <!-- link back to login for existing users -->
+            <p class="register-link">
+                Already have an account? <a href="login.php">Login here</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>
