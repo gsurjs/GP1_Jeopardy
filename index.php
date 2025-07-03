@@ -24,6 +24,15 @@ if (!isset($_SESSION['answered'])) {
 	$_SESSION['answered'] = array();
 }
 
+// init curr player turn -for multiplayer
+if (!isset($_SESSION['current_player'])) {
+    $_SESSION['current_player'] = 0;
+}
+
+if (!isset($_SESSION['players'])) {
+    $_SESSION['players'] = array($_SESSION['username']);
+}
+
 // categories and questions, structure: category >> val >> question & answer
 $categories = array (
 	"WORLD CAPITALS" => array (
