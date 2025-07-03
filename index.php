@@ -178,4 +178,5 @@ if (isset($_GET['reset'])) {
             </div>
         </footer>
     </div>
+    
 </body>
