@@ -104,3 +104,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php if ($success): ?>
                 <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
             <?php endif; ?>
+
+            <!-- username input field -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <!-- keep username val after failed submission -->
+                <!-- htmlspecialchars() prevents XSS attacks by escaping special characters -->
+                <input type="text" id="username" name="username" required autofocus 
+                       value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
+            </div>
+
+            <!-- password input field -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <!-- password fields are never pre-filled for security -->
+                <input type="password" id="password" name="password" required>
+            </div>
