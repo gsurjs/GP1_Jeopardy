@@ -78,13 +78,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
     if (strcasecmp($userAnswer, $correctAnswer) == 0) {
         $_SESSION['scores'][$_SESSION['username']] += $value;
         $_SESSION['last_result'] = "Correct! You earned $" . $value;
+        $_SESSION['result_class'] = "correct";
     } else {
     	// wrong answer subtracts points based on val
         $_SESSION['scores'][$_SESSION['username']] -= $value;
         $_SESSION['last_result'] = "Sorry, the correct answer was: " . $correctAnswer;
+        $_SESSION['result_class'] = "incorrect";
     }
     
     // redirect to prevent form resubmission when page is refreshed
+    header("Location: index.php");
+    exit();
+}
+
+// reset game
+if (isset($_GET['reset'])) {
+    $_SESSION['answered'] = array();
+    $_SESSION['scores'][$_SESSION['username']] = 0;
     header("Location: index.php");
     exit();
 }
