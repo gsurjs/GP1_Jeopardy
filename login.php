@@ -55,4 +55,19 @@ if (isset($_COOKIE['jeopardy_user']) && !isset($_SESSION['username'])) {
 }
 ?>
 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Is Jeopardy! - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <h1 class="game-title login-title">This Is JEOPARDY!</h1>
+        
+        <form class="login-form" method="POST" action="login.php">
+            <?php if ($error): ?>
+                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
