@@ -58,3 +58,22 @@ $categories = array(
         1000 => array("q" => "This Byzantine emperor, ruling from 527-565 CE, attempted to reconquer the Western Roman Empire and codified Roman law.", "a" => "Who is Justinian I?")
     )
 );
+
+//validation check for requested question existence
+if (!isset($categories[$category][$value])) {
+    header("Location: index.php");
+    exit();
+}
+
+//check for existing answer, create unique ID for question
+$questionKey = $category . "_" . $value;
+// ?? [] provides empty arr as default if answered array doesn't exist
+if (in_array($questionKey, $_SESSION['answered'] ?? [])) {
+    header("Location: index.php");
+    exit();
+}
+
+// gather question text for display
+$question = $categories[$category][$value]['q'];
+?>
+
