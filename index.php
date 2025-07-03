@@ -170,4 +170,12 @@ if (isset($_GET['reset'])) {
                 </div>
             <?php endforeach; ?>
         </div>
+        <!-- footer -->
+        <footer>
+            <div class="game-options">
+                <a href="leaderboard.php" class="option-btn">Leaderboard</a>
+                <a href="index.php?reset=true" class="option-btn" onclick="return confirm('Are you sure you want to reset the game?');">Reset Game</a>
+            </div>
+        </footer>
+    </div>
 </body>
