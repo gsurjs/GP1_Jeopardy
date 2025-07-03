@@ -71,3 +71,30 @@ if (isset($_COOKIE['jeopardy_user']) && !isset($_SESSION['username'])) {
             <?php if ($error): ?>
                 <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
             <?php endif; ?>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required autofocus
+                       value="<?php echo isset($cookie_username) ? htmlspecialchars($cookie_username) : ''; ?>">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember Me</label>
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
+            
+            <p class="register-link">
+                New player? <a href="register.php">Register here</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>
+
