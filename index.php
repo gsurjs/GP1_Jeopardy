@@ -124,11 +124,11 @@ if (isset($_GET['reset'])) {
         <!-- result message display area -->
         <!-- shows feedback after answering a question -->
         <?php if (isset($_SESSION['last_result'])): ?>
-            <div class="result-message">
+            <div class="result-message <?php echo $_SESSION['result_class']; ?>">
                 <?php 
                 echo htmlspecialchars($_SESSION['last_result']);
-                // unset the message after displaying to prevent it from showing again
                 unset($_SESSION['last_result']);
+                unset($_SESSION['result_class']);
                 ?>
             </div>
         <?php endif; ?>
@@ -141,4 +141,33 @@ if (isset($_GET['reset'])) {
                     <div class="category"><?php echo $category; ?></div>
                 <?php endforeach; ?>
             </div>
+
+            <!-- question vals -->
+            <?php 
+            $values = array(200, 400, 600, 800, 1000);
+            foreach ($values as $value): 
+            ?>
+                <div class="question-row">
+                    <?php foreach ($categories as $category => $questions): ?>
+                        <?php 
+                        $questionKey = $category . "_" . $value;
+                        $isAnswered = in_array($questionKey, $_SESSION['answered']);
+                        ?>
+                        <?php if (!$isAnswered): ?>
+                            <div class="question-tile">
+                                <form method="GET" action="question.php">
+                                    <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>">
+                                    <input type="hidden" name="value" value="<?php echo $value; ?>">
+                                    <button type="submit" class="question-button">$<?php echo $value; ?></button>
+                                </form>
+                            </div>
+                        <?php else: ?>
+                            <div class="question-tile answered">
+                                <span class="answered-text">---</span>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
 </body>
