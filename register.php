@@ -77,3 +77,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+<!--Register HTML-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Is Jeopardy! - Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <!-- main container for registration form -->
+    <div class="login-container">
+        <!-- page title with glowing animation effect -->
+        <h1 class="game-title login-title">Register for JEOPARDY!</h1>
+
+        <!-- registration form that submits to itself -->
+        <form class="login-form" method="POST" action="register.php">
+            <!-- edge case - validation failure error message display -->
+            <?php if ($error): ?>
+                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
+
+            <!-- display success message after successful registration -->
+            <?php if ($success): ?>
+                <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
+            <?php endif; ?>
+
+            <!-- username input field -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <!-- keep username val after failed submission -->
+                <!-- htmlspecialchars() prevents XSS attacks by escaping special characters -->
+                <input type="text" id="username" name="username" required autofocus 
+                       value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
+            </div>
+
+            <!-- password input field -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <!-- password fields are never pre-filled for security -->
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <!-- password confirmation field -->
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+
+            <!-- submit button with hover effect -->
+            <button type="submit" class="login-btn">Register</button>
+
+            <!-- link back to login for existing users -->
+            <p class="register-link">
+                Already have an account? <a href="login.php">Login here</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>
