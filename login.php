@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //validation edge case
     if (empty($username) || empty($password)) {
         $error = "Please fill in all fields";
-	} else
-		// if edge case passes, read users from file
-		$users_file = 'users.txt';
+    } else {
+        // if edge case passes, read users from file
+        $users_file = 'users.txt';
         $valid_login = false;
 
         if (file_exists($users_file)) {
@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         }
+        
         if ($valid_login) {
             $_SESSION['username'] = $username;
             
@@ -97,4 +98,3 @@ if (isset($_COOKIE['jeopardy_user']) && !isset($_SESSION['username'])) {
     </div>
 </body>
 </html>
-
