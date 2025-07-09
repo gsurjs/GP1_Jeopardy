@@ -1,5 +1,3 @@
-// index php for Group Project 1 'Jeopardy'
-
 <?php
 session_start();
 
