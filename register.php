@@ -80,7 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // FILE_APPEND adds to end of file instead of overwriting
             // LOCK_EX prevents other processes from writing simultaneously
             if (file_put_contents($users_file, $user_data, FILE_APPEND | LOCK_EX)) {
-                $success = "Registration successful! You can now login.";
+                // Ensure file has correct permissions after writing
+                chmod($users_file, 0666);
+                
+                // Redirect to login page after successful registration
+                header("Location: login.php?registered=success");
+                exit();
             } else {
                 $error = "Failed to register. Please try again.";
             }
