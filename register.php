@@ -35,13 +35,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $users_file = 'users.txt';
         $username_exists = false;
         
-        // edge case to check for file existence
+        // Check if file doesn't exist, create it with proper permissions
+        if (!file_exists($users_file)) {
+            // Create the file
+            file_put_contents($users_file, '');
+            // Set permissions to 666 (readable/writable by all)
+            chmod($users_file, 0666);
+        }
+        
+        // edge case to check for file existence (now it should exist)
         if (file_exists($users_file)) {
             // read all file lines, FILE_IGNORE_NEW_LINES removes \n from each line
             $users = file($users_file, FILE_IGNORE_NEW_LINES);
             
             // loop through users in file
             foreach ($users as $user) {
+                // skip empty lines
+                if (trim($user) === '') continue;
+                
                 // split each line by ':' to separate username from password
                 // list() assigns values to variables from an array
                 list($stored_username, ) = explode(':', $user);
