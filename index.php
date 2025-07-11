@@ -3,18 +3,48 @@ session_start();
 
 // edge case check for user login
 if (!isset($_SESSION['username'])) {
-	header("Location: login.php");
-	exit();
+    header("Location: login.php");
+    exit();
 }
 
-// init game data if !exist, stores scores in array if this is the first time playing
+// Load scores from file
+function loadScores() {
+    $scores_file = 'scores.txt';
+    $scores = array();
+    
+    if (file_exists($scores_file)) {
+        $lines = file($scores_file, FILE_IGNORE_NEW_LINES);
+        foreach ($lines as $line) {
+            if (trim($line) === '') continue;
+            list($username, $score) = explode(':', $line);
+            $scores[$username] = intval($score);
+        }
+    }
+    return $scores;
+}
+
+// Save scores to file
+function saveScores($scores) {
+    $scores_file = 'scores.txt';
+    $data = '';
+    foreach ($scores as $username => $score) {
+        $data .= $username . ':' . $score . PHP_EOL;
+    }
+    file_put_contents($scores_file, $data, LOCK_EX);
+    chmod($scores_file, 0666);
+}
+
+// Load existing scores from file
+$persistent_scores = loadScores();
+
+// init game data if !exist, but load from file first
 if (!isset($_SESSION['scores'])) {
-	$_SESSION['scores'] = array();
+    $_SESSION['scores'] = $persistent_scores;
 }
 
-// add curr user to scores if !exist, adds users curr score if first time
+// add curr user to scores if !exist, but check file first
 if (!isset($_SESSION['scores'][$_SESSION['username']])) {
-	$_SESSION['scores'][$_SESSION['username']] = 0;
+    $_SESSION['scores'][$_SESSION['username']] = isset($persistent_scores[$_SESSION['username']]) ? $persistent_scores[$_SESSION['username']] : 0;
 }
 
 // init answered questions, prevent repeated answers
@@ -92,6 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
         $_SESSION['last_result'] = "Sorry, the correct answer was: " . $correctAnswer;
         $_SESSION['result_class'] = "incorrect";
     }
+
+    // save updated scores to file
+    saveScores($_SESSION['scores']);
     
     // redirect to prevent form resubmission when page is refreshed
     header("Location: index.php");
@@ -102,6 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answer'])) {
 if (isset($_GET['reset'])) {
     $_SESSION['answered'] = array();
     $_SESSION['scores'][$_SESSION['username']] = 0;
+    
+    // Save reset score to file
+    saveScores($_SESSION['scores']);
+    
     header("Location: index.php");
     exit();
 }
