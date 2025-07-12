@@ -1,0 +1,65 @@
+# Sensitive user data
+users.txt
+scores.txt
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Log files
+*.log
+error.log
+access.log
+debug.log
+
+# Configuration files that might contain sensitive info
+config.php
+database.php
+.env
+.env.local
+.env.production
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PHP specific
+*.cache
+cache/
+vendor/
+composer.phar
+composer.lock
+
+# Session files
+sess_*
+sessions/
+
+# Backup files
+*.bak
+*.backup
+*.old
+backup/
+
+# Test files you might create
+test.txt
+test_*.php
+debug.php
+debug_*.php
+phpinfo.php
+
+# FTP/deployment files
+.ftpconfig
+deploy.php
+deployment/
+
+# Other possible sensitive files
+passwords.txt
+admin.txt
+secrets.txt

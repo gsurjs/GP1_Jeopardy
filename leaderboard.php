@@ -7,11 +7,34 @@ if (!isset($_SESSION['username'])) {
 	exit();
 }
 
-// Retrieve the scores array from the session.
-$scores = isset($_SESSION['scores']) ? $_SESSION['scores'] : [];
+// Load scores from file instead of just session
+function loadScores() {
+    $scores_file = 'scores.txt';
+    $scores = array();
+    
+    if (file_exists($scores_file)) {
+        $lines = file($scores_file, FILE_IGNORE_NEW_LINES);
+        foreach ($lines as $line) {
+            if (trim($line) === '') continue;
+            list($username, $score) = explode(':', $line);
+            $scores[$username] = intval($score);
+        }
+    }
+    return $scores;
+}
+
+// Get scores from file for leaderboard display
+$scores = loadScores();
+
+// Merge with any session scores that might not be saved yet
+if (isset($_SESSION['scores'])) {
+    foreach ($_SESSION['scores'] as $username => $score) {
+        $scores[$username] = $score;
+    }
+}
 
 // Sort the scores in descending order (highest first).
-// arsort() maintains the key-value association, which is perfect for this.
+// arsort() maintains the key-value association
 if (!empty($scores)) {
     arsort($scores);
 }
@@ -44,9 +67,14 @@ if (!empty($scores)) {
                         $rank = 1;
                         foreach ($scores as $username => $score): 
                         ?>
-                            <tr>
+                            <tr<?php echo ($username === $_SESSION['username']) ? ' style="background-color: rgba(255, 195, 0, 0.2);"' : ''; ?>>
                                 <td><?php echo $rank++; ?></td>
-                                <td><?php echo htmlspecialchars($username); ?></td>
+                                <td>
+                                    <?php echo htmlspecialchars($username); ?>
+                                    <?php if ($username === $_SESSION['username']): ?>
+                                        <span style="color: #ffc300;"> (You)</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>$<?php echo $score; ?></td>
                             </tr>
                         <?php endforeach; ?>
