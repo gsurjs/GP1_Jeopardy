@@ -8,6 +8,12 @@ if (isset($_SESSION['username'])) {
 }
 
 $error = "";
+$success = "";
+
+// check if user was redirected from successful registration
+if (isset($_GET['registered']) && $_GET['registered'] === 'success') {
+    $success = "Registration successful! You can now login.";
+}
 
 // login form submission handling
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
