@@ -142,7 +142,7 @@ $categories = array (
 		1000 => array(
 			array("q" => "This 1922 modernist novel by James Joyce takes place in Dublin over the course of a single day.", "a" => "What is Ulysses?"),
 			array("q" => "This epic poem by Homer tells the story of Odysseus's journey home.", "a" => "What is The Odyssey?"),
-			array("q" => "This Colombian author won the Nobel Prize for \"One Hundred Years of Solitude.\"", "a" => "Who is Gabriel García Márquez?")
+			array("q" => "This Colombian author won the Nobel Prize for \"One Hundred Years of Solitude.\"", "a" => "Who is Gabriel Garcia Marquez?")
 		)
 	),
 	"POP CULTURE" => array (
@@ -168,8 +168,8 @@ $categories = array (
 		),
 		1000 => array(
 			array("q" => "This video game, released in 1980, was the first to feature cutscenes and is considered the first mascot character in gaming.", "a" => "What is Pac-Man?"),
-			array("q" => "This artist holds the record for most Grammy wins of all time.", "a" => "Who is Beyoncé?"),
-			array("q" => "This streaming service launched by Disney+ became a major competitor to Netflix.", "a" => "What is Disney Plus?")
+			array("q" => "This artist holds the record for most Grammy wins of all time.", "a" => "Who is Beyonce?"),
+			array("q" => "This streaming service launched by Disney became a major competitor to Netflix.", "a" => "What is Disney+?")
 		)
 	),
 	"HISTORY" => array (
